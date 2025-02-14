@@ -1,4 +1,4 @@
-import { browser } from 'k6/experimental/browser';
+import { browser, networkProfiles } from 'k6/experimental/browser';
 
 
 export const options={
@@ -19,14 +19,8 @@ export const options={
 
 export default async function () {
     const page = browser.newPage()
-    page.setViewportSize({
-        width: 375,
-        height:812
-    })
+    page.throttleNetwork(networkProfiles['Slow 3G'])
     await page.goto('https://www.google.com/')
-page.screenshot({fullPage:true,
-    path: 'screenshots/test2.png'
-})
 
     page.close()
 }

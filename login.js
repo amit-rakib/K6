@@ -31,6 +31,11 @@ export default async function () {
     const submitButton = page.locator("input[value='Submit']");
     await submitButton.click();
 
+    // take screenshot
+    page.screenshot({ fullPage:true,
+        path: 'screenshots/test1.png'
+    })
+
     // Validate text content manually
     const alertText = await page.locator("//div[@class='alert alert-success alert-dismissible']").textContent();
     check(alertText, {
