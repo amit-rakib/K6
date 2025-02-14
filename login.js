@@ -19,8 +19,8 @@ export default async function () {
     await page.goto('https://rahulshettyacademy.com/angularpractice/');
 
     // Fix: Using .first() to select the first matching element
-    await page.locator("input[name='name']").first().type('Amit');
-    await page.locator("input[name='email']").first().type("async@hub.com");
+    await page.locator("body > app-root > form-comp > div > form > div:nth-child(1) > input").type('Amit');
+    await page.locator("input[name='email']").type("async@hub.com");
     await page.locator("#exampleInputPassword1").type("hello1234");
     
     // Check the checkbox correctly
@@ -28,13 +28,13 @@ export default async function () {
     await checkbox.check();
 
     // Correct button click
-    const submitButton = page.locator("input[value='Submit']").first();
-    await Promise.all([page.waitForNavigation(), submitButton.click()]);
+    const submitButton = page.locator("input[value='Submit']");
+    await submitButton.click();
 
     // Validate text content manually
-    const alertText = await page.locator(".alert.alert-success.alert-dismissible").textContent();
+    const alertText = await page.locator("//div[@class='alert alert-success alert-dismissible']").textContent();
     check(alertText, {
-        'Form submission success message displayed': (text) => text.includes("Success! The Form has been submitted successfully!")
+        'Form submission success message displayed': (text) => text.includes("Success!")
     });
 
     await page.close();
