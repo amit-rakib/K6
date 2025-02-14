@@ -19,6 +19,10 @@ export const options={
 
 export default async function () {
     const page = browser.newPage()
+    page.setViewportSize({
+        width: 375,
+        height:812
+    })
     await page.goto('https://www.google.com/')
     page.close()
 }
